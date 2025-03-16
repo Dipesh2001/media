@@ -14,8 +14,8 @@ const Register = () => {
       },
       validationSchema: adminRegisterSchema,
       onSubmit: async (values) => {
-        console.log("Form Data:", values);
-        await registerAdmin(values);
+        const res = await registerAdmin(values);
+        console.log("Response", res);
       },
     });
 
@@ -66,19 +66,6 @@ const Register = () => {
                   </span>
                 )}
               </div>
-              {/* <div className="form-group">
-                <select
-                  className="form-select form-select-lg"
-                  id="exampleFormControlSelect2"
-                >
-                  <option>Country</option>
-                  <option>United States of America</option>
-                  <option>United Kingdom</option>
-                  <option>India</option>
-                  <option>Germany</option>
-                  <option>Argentina</option>
-                </select>
-              </div> */}
               <div className="form-group">
                 <input
                   type="password"

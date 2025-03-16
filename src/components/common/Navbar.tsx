@@ -1,6 +1,12 @@
-import React from "react";
+import { useState } from "react";
+import { useLogoutAdminMutation } from "../../features/adminApi";
+import { successToast } from "../../helper";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const [dropDown, setDropDown] = useState<boolean>(false);
+  const [logoutAdmin] = useLogoutAdminMutation();
   return (
     <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -115,17 +121,29 @@ const Navbar = () => {
               href="#"
               data-bs-toggle="dropdown"
               id="profileDropdown"
+              onClick={() => setDropDown(!dropDown)}
             >
               <img src="assets/images/faces/face28.jpg" alt="profile" />
             </a>
             <div
-              className="dropdown-menu dropdown-menu-right navbar-dropdown"
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown ${
+                dropDown ? "show" : ""
+              }`}
               aria-labelledby="profileDropdown"
             >
-              <a className="dropdown-item">
+              {/* <a className="dropdown-item">
                 <i className="ti-settings text-primary"></i> Settings{" "}
-              </a>
-              <a className="dropdown-item">
+              </a> */}
+              <a
+                onClick={async () => {
+                  const { error } = await logoutAdmin();
+                  if (!error) {
+                    successToast("Logged out successfully.");
+                    navigate("/login");
+                  }
+                }}
+                className="dropdown-item"
+              >
                 <i className="ti-power-off text-primary"></i> Logout{" "}
               </a>
             </div>

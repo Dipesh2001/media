@@ -1,8 +1,10 @@
 import { useFormik } from "formik";
 import { adminLoginSchema } from "../../app/schema";
 import { Link } from "react-router-dom";
+import { useLoginAdminMutation } from "../../features/adminApi";
 
 const Login = () => {
+  const [loginAdmin] = useLoginAdminMutation();
   const { values, handleChange, handleBlur, handleSubmit, touched, errors } =
     useFormik({
       initialValues: {
@@ -10,8 +12,8 @@ const Login = () => {
         password: "",
       },
       validationSchema: adminLoginSchema,
-      onSubmit: (values) => {
-        console.log("Form Data:", values);
+      onSubmit: async (values) => {
+        const { data } = await loginAdmin(values);
       },
     });
 
