@@ -7,6 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [dropDown, setDropDown] = useState<boolean>(false);
   const [logoutAdmin] = useLogoutAdminMutation();
+
   return (
     <nav className="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -18,14 +19,14 @@ const Navbar = () => {
         </a>
       </div>
       <div className="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <button
+        {/* <button
           className="navbar-toggler navbar-toggler align-self-center"
           type="button"
           data-toggle="minimize"
         >
           <span className="icon-menu"></span>
-        </button>
-        <ul className="navbar-nav mr-lg-2">
+        </button> */}
+        {/* <ul className="navbar-nav mr-lg-2">
           <li className="nav-item nav-search d-none d-lg-block">
             <div className="input-group">
               <div
@@ -46,9 +47,9 @@ const Navbar = () => {
               />
             </div>
           </li>
-        </ul>
+        </ul> */}
         <ul className="navbar-nav navbar-nav-right">
-          <li className="nav-item dropdown">
+          {/* <li className="nav-item dropdown">
             <a
               className="nav-link count-indicator dropdown-toggle"
               id="notificationDropdown"
@@ -114,7 +115,7 @@ const Navbar = () => {
                 </div>
               </a>
             </div>
-          </li>
+          </li> */}
           <li className="nav-item nav-profile dropdown">
             <a
               className="nav-link dropdown-toggle"
@@ -131,9 +132,6 @@ const Navbar = () => {
               }`}
               aria-labelledby="profileDropdown"
             >
-              {/* <a className="dropdown-item">
-                <i className="ti-settings text-primary"></i> Settings{" "}
-              </a> */}
               <a
                 onClick={async () => {
                   const { error } = await logoutAdmin();
@@ -148,11 +146,11 @@ const Navbar = () => {
               </a>
             </div>
           </li>
-          <li className="nav-item nav-settings d-none d-lg-flex">
+          {/* <li className="nav-item nav-settings d-none d-lg-flex">
             <a className="nav-link" href="#">
               <i className="icon-ellipsis"></i>
             </a>
-          </li>
+          </li> */}
         </ul>
         <button
           className="navbar-toggler navbar-toggler-right d-lg-none align-self-center"

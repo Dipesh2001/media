@@ -1,14 +1,22 @@
+import { Link } from "react-router-dom";
+
 const Sidebar = () => {
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <ul className="nav">
         <li className="nav-item">
-          <a className="nav-link" href="index.html">
+          <Link className="nav-link" to="/">
             <i className="icon-grid menu-icon"></i>
             <span className="menu-title">Dashboard</span>
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to="/albums">
+            <i className="icon-grid menu-icon"></i>
+            <span className="menu-title">Albums</span>
+          </Link>
+        </li>
+        {/* <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="collapse"
@@ -45,7 +53,7 @@ const Sidebar = () => {
               </li>
             </ul>
           </div>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

@@ -8,18 +8,18 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useValidateAdminQuery } from "./features/adminApi";
-import { useEffect, useMemo, useState } from "react";
 
 const App = () => {
-  const { data, isLoading } = useValidateAdminQuery();
+  const { data, isLoading, error } = useValidateAdminQuery();
   // const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   // useEffect(() => {
   //   setIsAuthenticated(data?.authToken ? true : false);
   // }, [data]);
   // ✅ Use useMemo to derive authentication state directly from query data
-  const isAuthenticated = useMemo(() => !!data?.authToken, [data]);
 
+  // const isAuthenticated = useMemo(() => !!data?.authToken, [data]);
+  const isAuthenticated = error ? false : !!data?.authToken;
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
