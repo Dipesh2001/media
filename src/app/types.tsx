@@ -16,7 +16,7 @@ export interface QueryResponse<T> {
   message: string;
 }
 
-export interface Pagination {
+export interface pagination {
   page: number;
   size: number;
   totalPages: number;
@@ -33,4 +33,19 @@ export interface Album extends common {
   releaseDate: Date;
   status: boolean;
   likes: number;
+}
+
+export interface Artist extends common {
+  name: string;
+  image?: string; // URL or path to the image
+  bio?: string;
+  country?: string;
+  socialLinks?: {
+    youtube?: string;
+    instagram?: string;
+    twitter?: string;
+    facebook?: string;
+  };
+  followers: number;
+  isActive: boolean;
 }

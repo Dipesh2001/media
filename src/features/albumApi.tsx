@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Album, Pagination, QueryResponse } from "../app/types";
+import { Album, pagination, QueryResponse } from "../app/types";
+import { successToast } from "../helper";
 
-type responseType = { albums: Album[]; pagination: Pagination };
+type responseType = { albums: Album[]; pagination: pagination };
 
 interface albumResponse extends QueryResponse<responseType> {}
 
@@ -21,11 +22,19 @@ export const albumApi = createApi({
         body: formData,
       }),
       invalidatesTags: ["Album"],
+      transformResponse: (response: QueryResponse<{ album: Album }>) => {
+        successToast(response.message);
+        return response.data.album;
+      },
     }),
 
     // 📚 Get All Albums
-    getAllAlbums: builder.query<responseType, { page: number; size: number }>({
-      query: ({ page, size }) => `/?page=${page}&size=${size}`,
+    getAllAlbums: builder.query<
+      responseType,
+      { page: number; size: number; search: string; sortBy: string }
+    >({
+      query: ({ page, size, search, sortBy }) =>
+        `/?page=${page}&size=${size}&search=${search}&sortBy=${sortBy}`,
       providesTags: ["Album"],
       transformResponse: (response: albumResponse) => response.data,
     }),
@@ -33,6 +42,8 @@ export const albumApi = createApi({
     // 🔍 Get Single Album
     getAlbumById: builder.query<Album, string>({
       query: (id) => `/${id}`,
+      transformResponse: (response: QueryResponse<{ album: Album }>) =>
+        response.data.album,
       providesTags: (result, error, id) => [{ type: "Album", id }],
     }),
 
@@ -47,6 +58,10 @@ export const albumApi = createApi({
         { type: "Album", id },
         "Album",
       ],
+      transformResponse: (response: QueryResponse<{ album: Album }>) => {
+        successToast(response.message);
+        return response.data.album;
+      },
     }),
 
     // ❌ Delete Album
@@ -67,7 +82,7 @@ export const albumApi = createApi({
         url: `/${id}/status`,
         method: "PATCH",
       }),
-      invalidatesTags: (result, error, id) => [{ type: "Album", id }, "Album"],
+      invalidatesTags: ["Album"],
     }),
   }),
 });

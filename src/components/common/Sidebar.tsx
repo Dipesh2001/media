@@ -1,21 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
+  const sidebarLinks = [
+    {
+      name: "Dashboard",
+      path: "/",
+      iconClass: "icon-grid menu-icon",
+    },
+    {
+      name: "Albums",
+      path: "/albums",
+      iconClass: "icon-grid menu-icon fa fa-folder-open",
+    },
+    {
+      name: "Artists",
+      path: "/artists",
+      iconClass: "icon-grid menu-icon fa fa-microphone",
+    },
+  ];
+
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
       <ul className="nav">
-        <li className="nav-item">
-          <Link className="nav-link" to="/">
-            <i className="icon-grid menu-icon"></i>
-            <span className="menu-title">Dashboard</span>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/albums">
-            <i className="icon-grid menu-icon"></i>
-            <span className="menu-title">Albums</span>
-          </Link>
-        </li>
+        {sidebarLinks.map((link) => (
+          <li
+            key={link.path}
+            className={`nav-item ${
+              location.pathname === link.path ? "active" : ""
+            }`}
+          >
+            <Link className="nav-link" to={link.path}>
+              <i className={link.iconClass}></i>
+              <span className="menu-title">{link.name}</span>
+            </Link>
+          </li>
+        ))}
         {/* <li className="nav-item">
           <a
             className="nav-link"
